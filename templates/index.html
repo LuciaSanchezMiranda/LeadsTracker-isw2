@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Leads Tracker</title>
+
+    <!-- Tailwind compilado localmente -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+</head>
+
+<body class="bg-gray-100">
+
+    <div id="mainCard" class="opacity-0 max-w-3xl mx-auto p-6 bg-white shadow mt-10 rounded transition-all duration-700">
+        
+        <h1 class="text-3xl font-extrabold text-blue-600 mb-6 text-center tracking-wide">
+            Registrar Lead
+        </h1>
+
+        <form id="leadForm" method="POST" class="space-y-4">
+            <input type="text" name="nombre" placeholder="Nombre Completo" required class="w-full border p-2 rounded focus:ring focus:ring-blue-300 transition">
+            <input type="email" name="correo" placeholder="Correo Electrónico" required class="w-full border p-2 rounded focus:ring focus:ring-blue-300 transition">
+            <input type="text" name="telefono" placeholder="Teléfono" class="w-full border p-2 rounded focus:ring focus:ring-blue-300 transition">
+
+            <select name="interes" class="w-full border p-2 rounded focus:ring focus:ring-blue-300 transition">
+                <option value="">Selecciona un servicio</option>
+                <option value="Consultoría">Consultoría</option>
+                <option value="Desarrollo Web">Desarrollo Web</option>
+                <option value="Marketing Digital">Marketing Digital</option>
+                <option value="Soporte Técnico">Soporte Técnico</option>
+            </select>
+
+            <button id="btnSubmit" type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                Guardar
+            </button>
+        </form>
+
+        <h2 class="text-xl font-bold mt-10 mb-4">Leads Registrados</h2>
+
+        <table class="min-w-full bg-white border rounded overflow-hidden shadow-sm">
+            <thead class="bg-blue-600 text-white">
+                <tr>
+                    <th class="border px-4 py-2">Nombre</th>
+                    <th class="border px-4 py-2">Correo</th>
+                    <th class="border px-4 py-2">Teléfono</th>
+                    <th class="border px-4 py-2">Interés</th>
+                    <th class="border px-4 py-2">Fecha Registro</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody" class="animate-fade opacity-0">
+                {% for lead in leads %}
+                <tr class="hover:bg-gray-100 transition">
+                    <td class="border px-4 py-2">{{ lead.nombre_completo }}</td>
+                    <td class="border px-4 py-2">{{ lead.correo }}</td>
+                    <td class="border px-4 py-2">{{ lead.telefono }}</td>
+                    <td class="border px-4 py-2">{{ lead.interes }}</td>
+                    <td class="border px-4 py-2">{{ lead.fecha_registro }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+        <!-- Archivo JS -->
+    <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</body>
+</html>
